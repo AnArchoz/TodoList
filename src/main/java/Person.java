@@ -8,10 +8,10 @@ public class Person {
 		if (firstName == null || lastName == null || email == null) {
 			throw new IllegalArgumentException("No null values allowed!");
 		} else {
-			this.id = id;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.email = email;
+			setId(id);
+			setFirstName(firstName);
+			setLastName(lastName);
+			setEmail(email);
 		}
 	}
 
@@ -19,7 +19,7 @@ public class Person {
 		return id;
 	}
 
-	public void setId(int id) {
+	private void setId(int id) {
 		this.id = id;
 	}
 

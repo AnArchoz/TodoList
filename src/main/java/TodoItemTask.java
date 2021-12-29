@@ -5,23 +5,20 @@ public class TodoItemTask {
 	private Person assignee;
 
 	public TodoItemTask(int id, TodoItem todoItem, Person assignee) {
-		this.id = id;
-		if (assignee != null) {
-			this.assigned = true;
-			this.assignee = assignee;
-		}
-		if (todoItem == null) {
-			throw new IllegalArgumentException("No null values allowed!");
-		} else {
-			this.todoItem = todoItem;
-		}
+		setId(id);
+		setTodoItem(todoItem);
+		setAssignee(assignee);
+	}
+
+	public TodoItemTask() {
+
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	private void setId(int id) {
 		this.id = id;
 	}
 
@@ -29,9 +26,6 @@ public class TodoItemTask {
 		return assigned;
 	}
 
-	public void setAssigned(boolean assigned) {
-		this.assigned = assigned;
-	}
 
 	public TodoItem getTodoItem() {
 		return todoItem;
@@ -50,7 +44,12 @@ public class TodoItemTask {
 	}
 
 	public void setAssignee(Person assignee) {
-		this.assignee = assignee;
+		if (assignee == null) {
+			throw new IllegalArgumentException("TodoItemTask assignee is NULL");
+		} else {
+			this.assignee = assignee;
+			this.assigned = true;
+		}
 	}
 
 	public String getSummary() {

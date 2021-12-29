@@ -6,6 +6,16 @@ public class TodoItem {
 	private String taskDescription;
 	private LocalDate deadLine;
 	private boolean done;
+
+	public TodoItem(int id, String title, String taskDescription, LocalDate deadLine, boolean done, Person creator) {
+		setId(id);
+		setTitle(title);
+		setTaskDescription(taskDescription);
+		setDeadLine(deadLine);
+		setDone(done);
+		setCreator(creator);
+	}
+
 	private Person creator;
 
 	public int getId() {
