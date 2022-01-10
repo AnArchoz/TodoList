@@ -46,7 +46,7 @@ public class TodoItem {
 		if (taskDescription == null || taskDescription.equals("")) {
 			throw new IllegalArgumentException("No null values allowed!");
 		} else {
-			this.taskDescription += taskDescription;
+			this.taskDescription = taskDescription;
 		}
 	}
 
@@ -60,7 +60,7 @@ public class TodoItem {
 			throw new IllegalArgumentException("No null values allowed!");
 		} else {
 			//Error if deadline is past due date.
-			if (isOverdue()) {
+			if (isOverdue(deadLine)) {
 				throw new IllegalArgumentException("Item is out of date!");
 			} else {
 				this.deadLine = deadLine;
@@ -68,8 +68,10 @@ public class TodoItem {
 		}
 	}
 
-	private boolean isOverdue() {
-		return deadLine.compareTo(LocalDate.now()) >= 0;
+	private boolean isOverdue(LocalDate deadLine) {
+		return deadLine.compareTo(LocalDate.now()) <= 0;
+
+
 	}
 
 	public boolean isDone() {

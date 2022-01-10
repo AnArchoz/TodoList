@@ -10,10 +10,6 @@ public class TodoItemTask {
 		setAssignee(assignee);
 	}
 
-	public TodoItemTask() {
-
-	}
-
 	public int getId() {
 		return id;
 	}
