@@ -1,3 +1,7 @@
+package model;
+
+import java.util.Objects;
+
 public class TodoItemTask {
 	private int id;
 	private boolean assigned;
@@ -41,19 +45,32 @@ public class TodoItemTask {
 
 	public void setAssignee(Person assignee) {
 		if (assignee == null) {
-			throw new IllegalArgumentException("TodoItemTask assignee is NULL");
+			throw new IllegalArgumentException("model.TodoItemTask assignee is NULL");
 		} else {
 			this.assignee = assignee;
 			this.assigned = true;
 		}
 	}
 
-	public String getSummary() {
+	@Override
+	public String toString() {
 		return "TodoItemTask{" +
 				"id=" + id +
 				", assigned=" + assigned +
 				", todoItem=" + todoItem +
-				", assignee=" + assignee +
 				'}';
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		TodoItemTask task = (TodoItemTask) o;
+		return getId() == task.getId() && isAssigned() == task.isAssigned() && getTodoItem().equals(task.getTodoItem());
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId(), isAssigned(), getTodoItem());
 	}
 }

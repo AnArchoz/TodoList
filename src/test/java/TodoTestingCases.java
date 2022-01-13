@@ -1,113 +1,117 @@
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import model.Person;
+import model.TodoItem;
+import model.TodoItemTask;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TodoTestingCases {
 
-	Person anto;
-	Person klanto;
-	TodoItem anTodoItem;
-	TodoItem klanTodoItem;
-	TodoItemTask antodoItemTask;
-	TodoItemTask klantodoItemTask;
-
-	@Before
-	public void setUp() {
-		// Instantiate persons, TodoItems, and TodoItemTasks for testing.
-
-		anto = new Person(1, "Anto", "Rebelo", "email");
-		klanto = new Person(2, "Klanto", "rebbb", "email2");
-
-		anTodoItem = new TodoItem(1, "wash", "wash dishes", LocalDate.of(2022, 5, 5), true, anto);
-		klanTodoItem = new TodoItem(2, "drive", "drive kids", LocalDate.of(2022, 5, 5), true, klanto);
-
-		antodoItemTask = new TodoItemTask(1, anTodoItem, anto);
-	}
+    static Person anto;
+    static Person klanto;
+    static TodoItem anTodoItem;
+    static TodoItem klanTodoItem;
+    static TodoItemTask antodoItemTask;
 
 
-	@Test
-	public void testNullExceptions() {
-		// Person values cannot be null
-		Assert.assertThrows(IllegalArgumentException.class, () -> anto.setFirstName(null));
-		Assert.assertThrows(IllegalArgumentException.class, () -> anto.setLastName(null));
-		Assert.assertThrows(IllegalArgumentException.class, () -> anto.setEmail(null));
+    @BeforeAll
+    static void setUp() {
+        // Instantiate persons, TodoItems, and TodoItemTasks for testing.
 
-		// TodoItem values cannot be null
-		Assert.assertThrows(IllegalArgumentException.class, () -> anTodoItem.setCreator(null));
-		Assert.assertThrows(IllegalArgumentException.class, () -> anTodoItem.setDeadLine(null));
-		Assert.assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTaskDescription(null));
+        anto = new Person(1, "Anto", "Rebelo", "email");
+        klanto = new Person(2, "Klanto", "rebbb", "email2");
 
-		// TodoItemTask values cannot be null
-		Assert.assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTitle(null));
-		Assert.assertThrows(IllegalArgumentException.class, () -> antodoItemTask.setTodoItem(null));
-		Assert.assertThrows(IllegalArgumentException.class, () -> antodoItemTask.setAssignee(null));
-	}
+        anTodoItem = new TodoItem(1, "wash", "wash dishes", LocalDate.of(2022, 5, 5), true, anto);
+        klanTodoItem = new TodoItem(2, "drive", "drive kids", LocalDate.of(2022, 5, 5), true, klanto);
 
-	@Test
-	public void testEmptyStringsExceptions() {
-		// Throw exceptions if empty
-		Assert.assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTitle(""));
-		Assert.assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTaskDescription(""));
-	}
-
-	@Test
-	public void testSetters() {
-		// Person setters
-		anTodoItem.setCreator(klanto);
-		anTodoItem.setDeadLine(LocalDate.of(2022, 6, 20));
-		anTodoItem.setTitle("derp");
-		anTodoItem.setDone(true);
-		anTodoItem.setTaskDescription("derpderp");
-		anTodoItem.setId(2);
-
-		// TodoItem setters
-		antodoItemTask.setAssignee(klanto);
-		antodoItemTask.setTodoItem(klanTodoItem);
-
-		// TodoItemTask setters
-		anto.setEmail("derp@derp");
-		anto.setFirstName("klanto");
-		anto.setLastName("rebb");
+        antodoItemTask = new TodoItemTask(1, anTodoItem, anto);
+    }
 
 
-		Assert.assertEquals(anTodoItem.getCreator(), klanto);
-		Assert.assertEquals(anTodoItem.getDeadLine(), LocalDate.of(2022, 6, 20));
-		Assert.assertEquals(anTodoItem.getId(), 2);
-		Assert.assertEquals(anTodoItem.getTitle(), "derp");
-		Assert.assertEquals(anTodoItem.getTaskDescription(), "derpderp");
-		Assert.assertTrue(anTodoItem.isDone());
+    @Test
+    public void testNullExceptions() {
+        // model.Person values cannot be null
+        assertThrows(IllegalArgumentException.class, () -> anto.setFirstName(null));
+        assertThrows(IllegalArgumentException.class, () -> anto.setLastName(null));
+        assertThrows(IllegalArgumentException.class, () -> anto.setEmail(null));
 
-		Assert.assertEquals(antodoItemTask.getAssignee(), klanto);
-		Assert.assertEquals(antodoItemTask.getTodoItem(), klanTodoItem);
+        // model.TodoItem values cannot be null
+        assertThrows(IllegalArgumentException.class, () -> anTodoItem.setCreator(null));
+        assertThrows(IllegalArgumentException.class, () -> anTodoItem.setDeadLine(null));
+        assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTaskDescription(null));
 
-		Assert.assertEquals(anto.getEmail(), "derp@derp");
-		Assert.assertEquals(anto.getFirstName(), "klanto");
-		Assert.assertEquals(anto.getLastName(), "rebb");
-	}
+        // model.TodoItemTask values cannot be null
+        assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTitle(null));
+        assertThrows(IllegalArgumentException.class, () -> antodoItemTask.setTodoItem(null));
+        assertThrows(IllegalArgumentException.class, () -> antodoItemTask.setAssignee(null));
+    }
 
-	@Test
-	public void testConstructors() {
-		// Person values
-		Assert.assertEquals(anto.getId(), 1);
-		Assert.assertEquals(anto.getLastName(), "Rebelo");
-		Assert.assertEquals(anto.getEmail(), "email");
-		Assert.assertEquals(anto.getFirstName(), "Anto");
+    @Test
+    public void testEmptyStringsExceptions() {
+        // Throw exceptions if empty
+        assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTitle(""));
+        assertThrows(IllegalArgumentException.class, () -> anTodoItem.setTaskDescription(""));
+    }
 
-		// TodoItem values
-		Assert.assertEquals(anTodoItem.getId(), 1);
-		Assert.assertEquals(anTodoItem.getTitle(), "wash");
-		Assert.assertEquals(anTodoItem.getTaskDescription(), "wash dishes");
-		Assert.assertEquals(anTodoItem.getDeadLine(), LocalDate.of(2022, 5, 5));
-		Assert.assertTrue(anTodoItem.isDone());
-		Assert.assertEquals(anTodoItem.getCreator(), anto);
+    @Test
+    public void testSetters() {
+        // model.Person setters
+        anTodoItem.setCreator(klanto);
+        anTodoItem.setDeadLine(LocalDate.of(2022, 6, 20));
+        anTodoItem.setTitle("derp");
+        anTodoItem.setDone(true);
+        anTodoItem.setTaskDescription("derpderp");
+        anTodoItem.setId(2);
 
-		// TodoItemTask values
-		Assert.assertEquals(antodoItemTask.getTodoItem(), anTodoItem);
-		Assert.assertEquals(antodoItemTask.getAssignee(), anto);
-		Assert.assertEquals(antodoItemTask.getId(), 1);
+        // model.TodoItem setters
+        antodoItemTask.setAssignee(klanto);
+        antodoItemTask.setTodoItem(klanTodoItem);
 
-	}
+        // model.TodoItemTask setters
+        anto.setEmail("derp@derp");
+        anto.setFirstName("klanto");
+        anto.setLastName("rebb");
+
+
+        assertEquals(anTodoItem.getCreator(), klanto);
+        assertEquals(anTodoItem.getDeadLine(), LocalDate.of(2022, 6, 20));
+        assertEquals(anTodoItem.getId(), 2);
+        assertEquals(anTodoItem.getTitle(), "derp");
+        assertEquals(anTodoItem.getTaskDescription(), "derpderp");
+        assertTrue(anTodoItem.isDone());
+
+        assertEquals(antodoItemTask.getAssignee(), klanto);
+        assertEquals(antodoItemTask.getTodoItem(), klanTodoItem);
+
+        assertEquals(anto.getEmail(), "derp@derp");
+        assertEquals(anto.getFirstName(), "klanto");
+        assertEquals(anto.getLastName(), "rebb");
+    }
+
+    @Test
+    public void testConstructors() {
+        // model.Person values
+        assertEquals(anto.getId(), 1);
+        assertEquals(anto.getLastName(), "Rebelo");
+        assertEquals(anto.getEmail(), "email");
+        assertEquals(anto.getFirstName(), "Anto");
+
+        // model.TodoItem values
+        assertEquals(anTodoItem.getId(), 1);
+        assertEquals(anTodoItem.getTitle(), "wash");
+        assertEquals(anTodoItem.getTaskDescription(), "wash dishes");
+        assertEquals(anTodoItem.getDeadLine(), LocalDate.of(2022, 5, 5));
+        assertTrue(anTodoItem.isDone());
+        assertEquals(anTodoItem.getCreator(), anto);
+
+        // model.TodoItemTask values
+        assertEquals(antodoItemTask.getTodoItem(), anTodoItem);
+        assertEquals(antodoItemTask.getAssignee(), anto);
+        assertEquals(antodoItemTask.getId(), 1);
+
+    }
 
 }
